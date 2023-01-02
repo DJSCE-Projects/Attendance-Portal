@@ -33,8 +33,6 @@ CREATE TABLE COURSES (
     teachers_id INTEGER NOT NULL REFERENCES TEACHERS(teachers_id)
 );
 
-DROP TABLE courses;
-
 CREATE TABLE course_appointed (
 	student_id INTEGER NOT NULL,
     cid INTEGER NOT NULL,
@@ -42,18 +40,3 @@ CREATE TABLE course_appointed (
     FOREIGN KEY(student_id) REFERENCES students(student_id),
     FOREIGN KEY(cid) REFERENCES courses(cid)
 );
-
-DROP TABLE course_appointed;
-
-INSERT INTO course_appointed VALUES(1, 1);
-
-SELECT * FROM students;
-
-SELECT sapid, student_name FROM students WHERE student_id = (SELECT DISTINCT student_id FROM course_appointed WHERE cid = (SELECT DISTINCT cid FROM courses WHERE cno = 123));
-
-SELECT * FROM course_appointed;
-SELECT * FROM students;
-
-SELECT DISTINCT sapid FROM teachers WHERE teachers_id = (SELECT DISTINCT teachers_id FROM courses WHERE cno like '123');
-
-TRUNCATE TABLE courses;

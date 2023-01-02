@@ -11,11 +11,12 @@ package sem3Project;
  */
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.sql.ResultSet;
 
 public class TeachersPage extends javax.swing.JFrame {
 
@@ -34,6 +35,7 @@ public class TeachersPage extends javax.swing.JFrame {
     public void initValues(String sapID, String myConnectionPass) {
         this.sapID = sapID;
         this.myConnectionPass = myConnectionPass;
+//        teacherInfo.setText("SAPID: " + this.sapID + " >");
     }
     
     Connection conn;
@@ -42,8 +44,12 @@ public class TeachersPage extends javax.swing.JFrame {
     
     public TeachersPage() {
         initComponents();
+        teacherInfo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        logOutButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        addCourseButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        giveAttndStudentButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        addStudentButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,30 +62,47 @@ public class TeachersPage extends javax.swing.JFrame {
         attnd_flag = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
-        addCourseButton = new javax.swing.JButton();
-        courseTeacherSAPIDTxtFeild = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         courseNameTxtFeild = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         courseNoTxtFeild = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        addCourseButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         giveAttndStudentcourseNoTxtFeild = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        studentSAPIDTxtFeild = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         giveAttndStudentButton = new javax.swing.JButton();
-        presentButton = new javax.swing.JRadioButton();
-        absentButton = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        courseNoTxtFeild1 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        studentSapidTxtFeild = new javax.swing.JTextField();
+        addStudentButton = new javax.swing.JButton();
+        logOutButton = new javax.swing.JButton();
+        teacherInfo = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 0, 0));
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        jTabbedPane1.setBackground(new java.awt.Color(204, 255, 255));
+        jTabbedPane1.setBackground(new java.awt.Color(51, 51, 255));
+        jTabbedPane1.setForeground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+
+        courseNameTxtFeild.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Course Name");
+
+        courseNoTxtFeild.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Course No.");
 
         addCourseButton.setBackground(new java.awt.Color(30, 144, 255));
         addCourseButton.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -91,15 +114,6 @@ public class TeachersPage extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Course Teacher SAPID");
-
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Course Name");
-
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Course No.");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -107,55 +121,47 @@ public class TeachersPage extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1)
-                                .addComponent(courseNameTxtFeild, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                                .addComponent(courseTeacherSAPIDTxtFeild))
-                            .addComponent(courseNoTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(155, 155, 155)
+                        .addComponent(addCourseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(addCourseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                        .addGap(63, 63, 63)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(courseNoTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(courseNameTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(60, 60, 60)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(courseNoTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(courseNoTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(courseNameTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(courseTeacherSAPIDTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(courseNameTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
                 .addComponent(addCourseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Add Course", jPanel2);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
+        giveAttndStudentcourseNoTxtFeild.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         giveAttndStudentcourseNoTxtFeild.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 giveAttndStudentcourseNoTxtFeildActionPerformed(evt);
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Course No.");
-
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Student SAP ID");
 
         giveAttndStudentButton.setBackground(new java.awt.Color(30, 144, 255));
         giveAttndStudentButton.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -166,14 +172,6 @@ public class TeachersPage extends javax.swing.JFrame {
                 giveAttndStudentButtonActionPerformed(evt);
             }
         });
-
-        attnd_flag.add(presentButton);
-        presentButton.setForeground(new java.awt.Color(255, 255, 255));
-        presentButton.setText("Present");
-
-        attnd_flag.add(absentButton);
-        absentButton.setForeground(new java.awt.Color(255, 255, 255));
-        absentButton.setText("Absent");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -186,73 +184,219 @@ public class TeachersPage extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addGap(82, 82, 82)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(studentSAPIDTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(giveAttndStudentcourseNoTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(presentButton)
-                            .addGap(52, 52, 52)
-                            .addComponent(absentButton))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(87, 87, 87)
-                            .addComponent(giveAttndStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                            .addComponent(giveAttndStudentcourseNoTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(174, 174, 174)
+                        .addComponent(giveAttndStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addGap(33, 33, 33)
+                .addGap(84, 84, 84)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(giveAttndStudentcourseNoTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(studentSAPIDTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(presentButton)
-                    .addComponent(absentButton))
-                .addGap(40, 40, 40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(giveAttndStudentcourseNoTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
                 .addComponent(giveAttndStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Give Attendance", jPanel1);
+
+        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Course No.");
+
+        courseNoTxtFeild1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Student sapid");
+
+        studentSapidTxtFeild.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        studentSapidTxtFeild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentSapidTxtFeildActionPerformed(evt);
+            }
+        });
+
+        addStudentButton.setBackground(new java.awt.Color(30, 144, 255));
+        addStudentButton.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        addStudentButton.setForeground(new java.awt.Color(255, 255, 255));
+        addStudentButton.setText("Add Student");
+        addStudentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addStudentButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(addStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(courseNoTxtFeild1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(studentSapidTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(88, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(courseNoTxtFeild1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(studentSapidTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(addStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(66, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Add Student", jPanel3);
+
+        logOutButton.setBackground(new java.awt.Color(30, 144, 255));
+        logOutButton.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        logOutButton.setForeground(new java.awt.Color(255, 255, 255));
+        logOutButton.setText("Log out");
+        logOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutButtonActionPerformed(evt);
+            }
+        });
+
+        teacherInfo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        teacherInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sem3Project/resources/Sample_User_Icon.png"))); // NOI18N
+        teacherInfo.setBorder(null);
+        teacherInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherInfoActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setBackground(new java.awt.Color(0, 0, 0));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setBackground(new java.awt.Color(255, 255, 102));
+        jLabel7.setFont(new java.awt.Font("Simplex_IV50", 0, 30)); // NOI18N
+        jLabel7.setText("Attendance Portal");
+        jLabel7.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(223, 223, 223)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(306, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(155, 155, 155)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+                        .addComponent(teacherInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(171, 171, 171)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(teacherInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(logOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                        .addGap(14, 14, 14))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
+        // TODO add your handling code here:
+        new LoginPage().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_logOutButtonActionPerformed
+
+    private void giveAttndStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_giveAttndStudentButtonActionPerformed
+        // TODO add your handling code here:
+        String courseNo = giveAttndStudentcourseNoTxtFeild.getText();
+        String courseTeacherSAPID = this.sapID;
+        
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass);
+            obj = conn.prepareStatement("SELECT DISTINCT sapid FROM teachers WHERE teachers_id = (SELECT DISTINCT teachers_id FROM courses WHERE cno like '" + courseNo + "');");
+            
+            ResultSet rs = obj.executeQuery();
+            
+            if(!rs.next() || !courseTeacherSAPID.equals(rs.getString("sapid"))) {
+                throw new SQLException("Course not under teacher " + courseTeacherSAPID);
+            }
+            
+        } catch(SQLException e) {
+            ShowErrorPage errPage = new ShowErrorPage();
+            errPage.init(e.toString());
+            errPage.setVisible(true);
+            errPage.setLocationRelativeTo(null);
+            return;
+        }
+        
+        AttendancePage attndPage = new AttendancePage();
+        
+        attndPage.initValues(courseNo);
+        attndPage.fetchData(courseNo);
+        attndPage.setVisible(true);
+        attndPage.setLocationRelativeTo(null);
+        
+    }//GEN-LAST:event_giveAttndStudentButtonActionPerformed
+
+    private void giveAttndStudentcourseNoTxtFeildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_giveAttndStudentcourseNoTxtFeildActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_giveAttndStudentcourseNoTxtFeildActionPerformed
+
     private void addCourseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCourseButtonActionPerformed
         // TODO add your handling code here:
         String courseNo = this.courseNoTxtFeild.getText();
         String courseName = this.courseNameTxtFeild.getText();
-        String courseTeacherSAPID = this.courseTeacherSAPIDTxtFeild.getText();
+        String courseTeacherSAPID = this.sapID;
         
         try {
             conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass);
@@ -276,54 +420,75 @@ public class TeachersPage extends javax.swing.JFrame {
             obj2.executeUpdate();
             
         } catch(SQLException e) {
-            System.out.println(e);
+            ShowErrorPage errPage = new ShowErrorPage();
+            errPage.init(e.toString());
+            errPage.setVisible(true);
+            errPage.setLocationRelativeTo(null);
         }
     }//GEN-LAST:event_addCourseButtonActionPerformed
 
-    private void giveAttndStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_giveAttndStudentButtonActionPerformed
+    private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentButtonActionPerformed
         // TODO add your handling code here:
-        String courseNo = giveAttndStudentcourseNoTxtFeild.getText();
-        String sapID = studentSAPIDTxtFeild.getText();
-        LocalDate todaysDate = LocalDate.now();
-        
-        char attnd;
-        if(presentButton.isSelected()) {
-            System.out.println("Present");
-            attnd = 'P';
-        }
-        else if(absentButton.isSelected()) {
-            System.out.println("Absent");
-            attnd = 'A';
-        }
-        else {
-            attnd = '\0';
-        }
+        String courseNo = this.courseNoTxtFeild1.getText();
+        String studentSapId = studentSapidTxtFeild.getText();
+        String courseTeacherSAPID = this.sapID;
         
         try {
             conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass);
             
-            obj = conn.prepareStatement("INSERT INTO course_" + courseNo + " VALUES(?, ?, ?)");
+            obj = conn.prepareStatement("SELECT DISTINCT sapid FROM teachers WHERE teachers_id = (SELECT DISTINCT teachers_id FROM courses WHERE cno like '" + courseNo + "');");
             
-            obj.setString(1, todaysDate.toString());
-            obj.setString(2, sapID);
-            obj.setString(3, String.valueOf(attnd));
+            ResultSet rs = obj.executeQuery();
+            
+            if(!rs.next() || !courseTeacherSAPID.equals(rs.getString("sapid"))) {
+                throw new SQLException("Course not under teacher " + courseTeacherSAPID);
+            }
+            
+            obj = conn.prepareStatement("SELECT student_id FROM students WHERE sapid like ?");
+            obj.setString(1, studentSapId);
+            
+            rs = obj.executeQuery();
+            
+            if(!rs.next()) {
+                throw new SQLException("Incorrect student sapid: " + studentSapId);
+            }
+            
+            obj = conn.prepareStatement("INSERT INTO course_appointed VALUES ((SELECT student_id FROM students WHERE sapid like ?), (SELECT cid FROM courses WHERE cno like ?))");
+            
+            obj.setString(1, studentSapId);
+            obj.setString(2, courseNo);
             
             obj.executeUpdate();
             
         } catch(SQLException e) {
-            System.out.println(e);
+            ShowErrorPage errPage = new ShowErrorPage();
+            errPage.init(e.toString());
+            errPage.setVisible(true);
+            errPage.setLocationRelativeTo(null);
         }
-        
-        
-    }//GEN-LAST:event_giveAttndStudentButtonActionPerformed
+    }//GEN-LAST:event_addStudentButtonActionPerformed
 
-    private void giveAttndStudentcourseNoTxtFeildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_giveAttndStudentcourseNoTxtFeildActionPerformed
+    private void studentSapidTxtFeildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentSapidTxtFeildActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_giveAttndStudentcourseNoTxtFeildActionPerformed
+    }//GEN-LAST:event_studentSapidTxtFeildActionPerformed
+
+    private void teacherInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherInfoActionPerformed
+        // TODO add your handling code here:
+        InfoPage taeachersInfo = new InfoPage();
+        
+        taeachersInfo.showInfo(this.sapID);
+        
+        taeachersInfo.setVisible(true);
+        taeachersInfo.setLocationRelativeTo(null);
+    }//GEN-LAST:event_teacherInfoActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     
     private void addCourseButtonFocusGained(java.awt.event.FocusEvent evt) {
-        addCourseButton.setBackground(Color.red);
+        logOutButton.setBackground(Color.red);
     }
     /**
      * @param args the command line arguments
@@ -365,12 +530,12 @@ public class TeachersPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton absentButton;
     private javax.swing.JButton addCourseButton;
+    private javax.swing.JButton addStudentButton;
     private javax.swing.ButtonGroup attnd_flag;
     private javax.swing.JTextField courseNameTxtFeild;
     private javax.swing.JTextField courseNoTxtFeild;
-    private javax.swing.JTextField courseTeacherSAPIDTxtFeild;
+    private javax.swing.JTextField courseNoTxtFeild1;
     private javax.swing.JButton giveAttndStudentButton;
     private javax.swing.JTextField giveAttndStudentcourseNoTxtFeild;
     private javax.swing.JLabel jLabel1;
@@ -379,10 +544,14 @@ public class TeachersPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JRadioButton presentButton;
-    private javax.swing.JTextField studentSAPIDTxtFeild;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton logOutButton;
+    private javax.swing.JTextField studentSapidTxtFeild;
+    private javax.swing.JButton teacherInfo;
     // End of variables declaration//GEN-END:variables
 }

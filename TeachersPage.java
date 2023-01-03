@@ -35,7 +35,6 @@ public class TeachersPage extends javax.swing.JFrame {
     public void initValues(String sapID, String myConnectionPass) {
         this.sapID = sapID;
         this.myConnectionPass = myConnectionPass;
-//        teacherInfo.setText("SAPID: " + this.sapID + " >");
     }
     
     Connection conn;

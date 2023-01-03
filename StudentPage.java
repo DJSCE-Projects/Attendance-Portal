@@ -4,6 +4,14 @@
  */
 package sem3Project;
 
+import java.awt.Cursor;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author kusha
@@ -15,14 +23,57 @@ public class StudentPage extends javax.swing.JFrame {
      */
     private String sapID;
     private String myConnectionPass;
+    Connection conn;
+    PreparedStatement obj;
+    
+    private int count = 0;
     
     public StudentPage() {
         initComponents();
+        logOutButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        checkAttndButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        teacherInfo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }
+    
+    public void fetchData() {
+        DefaultTableModel infoTableModel = (DefaultTableModel) coursesTable.getModel();
+        infoTableModel.addColumn("Courses No");
+        infoTableModel.addColumn("Courses");
+        
+        DefaultTableModel attndTableModel;
+        attndTableModel = new DefaultTableModel(new Object[]{"Check Attendance"}, 0) {
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return Boolean.class;
+            }
+        };
+        
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass);
+            obj = conn.prepareStatement("select cno, course_name from courses where cid IN (Select distinct cid from course_appointed where student_id like (Select student_id from students where sapid like '" + this.sapID + "'));");
+            
+            ResultSet rs = obj.executeQuery();
+            
+            while(rs.next()) {
+               infoTableModel.addRow(new Object[] {rs.getString("cno"), rs.getString("course_name")});
+               attndTableModel.addRow(new Object[]{false});
+               count++;
+            }
+            coursesTable.setModel(infoTableModel);
+            checkAttndTable.setModel(attndTableModel);
+            
+        } catch(SQLException e) {
+            ShowErrorPage errPage = new ShowErrorPage();
+            errPage.init(e.toString());
+            errPage.setVisible(true);
+            errPage.setLocationRelativeTo(null);
+        }
     }
     
     /**
      *
      * @param sapID
+     * @param myConnectionPass
      */
     public void initValues(String sapID, String myConnectionPass) {
         this.sapID = sapID;
@@ -38,21 +89,172 @@ public class StudentPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel7 = new javax.swing.JLabel();
+        logOutButton = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        teacherInfo = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        coursesTable = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        checkAttndTable = new javax.swing.JTable();
+        checkAttndButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel7.setBackground(new java.awt.Color(255, 255, 102));
+        jLabel7.setFont(new java.awt.Font("Simplex_IV50", 0, 30)); // NOI18N
+        jLabel7.setText("Attendance Portal");
+        jLabel7.setToolTipText("");
+
+        logOutButton.setBackground(new java.awt.Color(30, 144, 255));
+        logOutButton.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        logOutButton.setForeground(new java.awt.Color(255, 255, 255));
+        logOutButton.setText("Log out");
+        logOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutButtonActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setBackground(new java.awt.Color(0, 0, 0));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        teacherInfo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        teacherInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sem3Project/resources/Sample_User_Icon.png"))); // NOI18N
+        teacherInfo.setBorder(null);
+        teacherInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherInfoActionPerformed(evt);
+            }
+        });
+
+        coursesTable.setBackground(new java.awt.Color(0, 0, 0));
+        coursesTable.setForeground(new java.awt.Color(255, 255, 255));
+        coursesTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(coursesTable);
+
+        checkAttndTable.setBackground(new java.awt.Color(0, 0, 0));
+        checkAttndTable.setForeground(new java.awt.Color(255, 255, 255));
+        checkAttndTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(checkAttndTable);
+
+        checkAttndButton.setBackground(new java.awt.Color(30, 144, 255));
+        checkAttndButton.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        checkAttndButton.setForeground(new java.awt.Color(255, 255, 255));
+        checkAttndButton.setText("Check Attnd");
+        checkAttndButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkAttndButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 870, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(155, 155, 155)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+                                .addComponent(teacherInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(123, 123, 123))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(checkAttndButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(357, 357, 357))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(teacherInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(checkAttndButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
+        // TODO add your handling code here:
+        new LoginPage().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_logOutButtonActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void teacherInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherInfoActionPerformed
+        // TODO add your handling code here:
+        InfoPage taeachersInfo = new InfoPage();
+
+        taeachersInfo.showInfo(this.sapID);
+
+        taeachersInfo.setVisible(true);
+        taeachersInfo.setLocationRelativeTo(null);
+    }//GEN-LAST:event_teacherInfoActionPerformed
+
+    private void checkAttndButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAttndButtonActionPerformed
+        // TODO add your handling code here:
+        int i=0;
+        while(i < count){
+            if("true".equals(checkAttndTable.getValueAt(i, 0).toString())) {
+                CheckAttendance check = new CheckAttendance();
+                check.initValues(sapID, Integer.parseInt(coursesTable.getValueAt(i, 0).toString()), coursesTable.getValueAt(i, 1).toString(), myConnectionPass);
+                check.fetchData();
+                check.setVisible(true);
+                check.setLocationRelativeTo(null);
+            }
+            ++i;
+        }
+    }//GEN-LAST:event_checkAttndButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -91,5 +293,14 @@ public class StudentPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton checkAttndButton;
+    private javax.swing.JTable checkAttndTable;
+    private javax.swing.JTable coursesTable;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton logOutButton;
+    private javax.swing.JButton teacherInfo;
     // End of variables declaration//GEN-END:variables
 }

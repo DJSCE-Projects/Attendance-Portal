@@ -104,6 +104,8 @@ public class AttendancePage extends javax.swing.JFrame {
 
         jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
 
+        infoTable.setBackground(new java.awt.Color(0, 0, 0));
+        infoTable.setForeground(new java.awt.Color(255, 255, 255));
         infoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -115,6 +117,8 @@ public class AttendancePage extends javax.swing.JFrame {
         infoTable.setAlignmentX(0.0F);
         jScrollPane1.setViewportView(infoTable);
 
+        attndTable.setBackground(new java.awt.Color(0, 0, 0));
+        attndTable.setForeground(new java.awt.Color(255, 255, 255));
         attndTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

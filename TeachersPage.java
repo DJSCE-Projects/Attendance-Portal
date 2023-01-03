@@ -17,6 +17,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import javax.swing.table.DefaultTableModel;
 
 public class TeachersPage extends javax.swing.JFrame {
 
@@ -31,10 +33,12 @@ public class TeachersPage extends javax.swing.JFrame {
     
     private String sapID;
     private String myConnectionPass;
+    LocalDate todaysDate = LocalDate.now();
     
     public void initValues(String sapID, String myConnectionPass) {
         this.sapID = sapID;
         this.myConnectionPass = myConnectionPass;
+        sapidFeild.setText("Courses under " + this.sapID + ":");
     }
     
     Connection conn;
@@ -48,6 +52,8 @@ public class TeachersPage extends javax.swing.JFrame {
         addCourseButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         giveAttndStudentButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         addStudentButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        dateFeild.setText("For " + this.todaysDate.toString());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,7 +76,10 @@ public class TeachersPage extends javax.swing.JFrame {
         giveAttndStudentcourseNoTxtFeild = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         giveAttndStudentButton = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        coursesUnderTeacherTable = new javax.swing.JTable();
+        dateFeild = new javax.swing.JLabel();
+        sapidFeild = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         courseNoTxtFeild1 = new javax.swing.JTextField();
@@ -120,21 +129,21 @@ public class TeachersPage extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(addCourseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
+                        .addGap(59, 59, 59)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(courseNoTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addComponent(courseNameTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(88, Short.MAX_VALUE))
+                            .addComponent(courseNameTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(155, 155, 155)
+                        .addComponent(addCourseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(87, 87, 87)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(courseNoTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -142,9 +151,9 @@ public class TeachersPage extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(courseNameTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addGap(61, 61, 61)
                 .addComponent(addCourseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Add Course", jPanel2);
@@ -172,9 +181,21 @@ public class TeachersPage extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("*For today");
+        coursesUnderTeacherTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(coursesUnderTeacherTable);
+
+        dateFeild.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        dateFeild.setForeground(new java.awt.Color(255, 255, 255));
+
+        sapidFeild.setBackground(new java.awt.Color(0, 0, 0));
+        sapidFeild.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -183,30 +204,39 @@ public class TeachersPage extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(giveAttndStudentcourseNoTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(89, 89, 89)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(giveAttndStudentcourseNoTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(dateFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(174, 174, 174)
+                        .addGap(162, 162, 162)
                         .addComponent(giveAttndStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(115, Short.MAX_VALUE))
+                        .addGap(47, 47, 47)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sapidFeild)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addGap(84, 84, 84)
-                .addComponent(jLabel4)
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addComponent(sapidFeild)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(dateFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(giveAttndStudentcourseNoTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
+                .addGap(18, 18, 18)
                 .addComponent(giveAttndStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addGap(41, 41, 41))
         );
 
         jTabbedPane1.addTab("Give Attendance", jPanel1);
@@ -250,18 +280,18 @@ public class TeachersPage extends javax.swing.JFrame {
                         .addGap(153, 153, 153)
                         .addComponent(addStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
+                        .addGap(76, 76, 76)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(courseNoTxtFeild1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(studentSapidTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(77, 77, 77)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(courseNoTxtFeild1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,9 +299,9 @@ public class TeachersPage extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(studentSapidTxtFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addGap(49, 49, 49)
                 .addComponent(addStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Add Student", jPanel3);
@@ -349,6 +379,30 @@ public class TeachersPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void fetchData() {
+        DefaultTableModel infoTableModel = new DefaultTableModel();
+        infoTableModel.addColumn("Course No.");
+        infoTableModel.addColumn("Course Name");
+        
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + this.myConnectionPass);
+            obj = conn.prepareStatement("SELECT cno, course_name FROM courses WHERE teachers_id = (SELECT teachers_id FROM teachers where sapid like '" + this.sapID + "')");
+            
+            ResultSet rs = obj.executeQuery();
+            while(rs.next()) {
+               infoTableModel.addRow(new Object[] {rs.getString("cno"), rs.getString("course_name")});
+            }
+            
+            coursesUnderTeacherTable.setModel(infoTableModel);
+            
+        } catch(SQLException e) {
+            ShowErrorPage errPage = new ShowErrorPage();
+            errPage.init(e.toString());
+            errPage.setVisible(true);
+            errPage.setLocationRelativeTo(null);
+        }
+    }
+    
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         // TODO add your handling code here:
         new LoginPage().setVisible(true);
@@ -367,7 +421,7 @@ public class TeachersPage extends javax.swing.JFrame {
             ResultSet rs = obj.executeQuery();
             
             if(!rs.next() || !courseTeacherSAPID.equals(rs.getString("sapid"))) {
-                throw new SQLException("Course not under teacher " + courseTeacherSAPID);
+                throw new SQLException("Course " + courseNo+ " not under teacher " + courseTeacherSAPID);
             }
             
         } catch(SQLException e) {
@@ -380,7 +434,7 @@ public class TeachersPage extends javax.swing.JFrame {
         
         AttendancePage attndPage = new AttendancePage();
         
-        attndPage.initValues(courseNo);
+        attndPage.initValues(courseNo, this.myConnectionPass);
         attndPage.fetchData(courseNo);
         attndPage.setVisible(true);
         attndPage.setLocationRelativeTo(null);
@@ -423,7 +477,10 @@ public class TeachersPage extends javax.swing.JFrame {
             errPage.init(e.toString());
             errPage.setVisible(true);
             errPage.setLocationRelativeTo(null);
+            return;
         }
+        
+        fetchData();
     }//GEN-LAST:event_addCourseButtonActionPerformed
 
     private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentButtonActionPerformed
@@ -535,6 +592,8 @@ public class TeachersPage extends javax.swing.JFrame {
     private javax.swing.JTextField courseNameTxtFeild;
     private javax.swing.JTextField courseNoTxtFeild;
     private javax.swing.JTextField courseNoTxtFeild1;
+    private javax.swing.JTable coursesUnderTeacherTable;
+    private javax.swing.JLabel dateFeild;
     private javax.swing.JButton giveAttndStudentButton;
     private javax.swing.JTextField giveAttndStudentcourseNoTxtFeild;
     private javax.swing.JLabel jLabel1;
@@ -542,14 +601,15 @@ public class TeachersPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton logOutButton;
+    private javax.swing.JLabel sapidFeild;
     private javax.swing.JTextField studentSapidTxtFeild;
     private javax.swing.JButton teacherInfo;
     // End of variables declaration//GEN-END:variables

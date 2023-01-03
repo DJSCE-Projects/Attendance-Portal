@@ -26,7 +26,8 @@ INSERT INTO STUDENTS(sapid, student_name, student_addr, student_email, student_p
 INSERT INTO STUDENTS(sapid, student_name, student_addr, student_email, student_phoneNo, pass) VALUES('60003210173', 'Araish Sheikh', 'Kandivali', 'kmistry7002@gmail.com','9892775337', 'kmistry@123');
 INSERT INTO STUDENTS(sapid, student_name, student_addr, student_email, student_phoneNo, pass) VALUES('60003210212', 'Mithil Bhide', 'Kandivali', 'kmistry7002@gmail.com','9892775337', 'kmistry@123');
 
-SELECT * FROM students;
+/*ERRROR*/
+INSERT INTO STUDENTS(sapid, student_name, student_addr, student_email, student_phoneNo, pass) VALUES('60003210205', 'Shruti bhavigada', 'Kandivali', 'kmistry7002@gmail.com','988889277337', 'kmistry@123');
 
 INSERT INTO teachers(sapid, teachers_name, teachers_addr, teachers_email, teachers_phoneNo, pass) VALUES('60000000122', 'Neha Katre', 'Andheri, Mumbai', 'nehaKatre123@gmail.com','8022425160', 'neha098765');
 INSERT INTO teachers(sapid, teachers_name, teachers_addr, teachers_email, teachers_phoneNo, pass) VALUES('60000000144', 'Neha Ram', 'Andheri, Mumbai', 'nehaKatre123@gmail.com','8022425160', 'ramNeha');
@@ -46,6 +47,25 @@ CREATE TABLE course_appointed (
     FOREIGN KEY(student_id) REFERENCES students(student_id),
     FOREIGN KEY(cid) REFERENCES courses(cid)
 );
-select course_name from courses
-where cid like (Select distinct cid from course_appointed
-				where student_id like (Select student_id from students where sapid like 60003210188));
+
+
+DROP TRIGGER IF EXISTS `sem_3_proj`.`students_BEFORE_INSERT`;
+DELIMITER $$
+USE `sem_3_proj`$$
+CREATE DEFINER=`kushal`@`%` TRIGGER `students_BEFORE_INSERT` BEFORE INSERT ON `students` FOR EACH ROW BEGIN
+IF length(NEW.student_phoneNo) > 10 THEN
+	signal sqlstate '13190' set message_text = 'Invalid Phone No.';
+END IF;
+END$$
+DELIMITER ;
+
+
+DROP TRIGGER IF EXISTS `sem_3_proj`.`teachers_BEFORE_INSERT`;
+DELIMITER $$
+USE `sem_3_proj`$$
+CREATE DEFINER=`kushal`@`%` TRIGGER `teachers_BEFORE_INSERT` BEFORE INSERT ON `teachers` FOR EACH ROW BEGIN
+IF length(NEW.teachers_phoneNo) > 10 THEN
+	signal sqlstate '13191' set message_text = 'Invalid Phone No.';
+END IF;
+END$$
+DELIMITER ;

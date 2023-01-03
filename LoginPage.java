@@ -237,6 +237,7 @@ public class LoginPage extends javax.swing.JFrame {
 
                     TeachersPage teacher = new TeachersPage();
                     teacher.initValues(sapid, myConnectionPass);
+                    teacher.fetchData();
 
                     teacher.setVisible(true);
                     teacher.setLocationRelativeTo(null);

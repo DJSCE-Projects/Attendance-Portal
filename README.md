@@ -27,7 +27,7 @@ Students and teachers can then login into the portal using their login credentia
 
 ### Author(s)
 
-[Kushal Vadodaria](http://linkedin.com/in/kushal-vadodaria)
+[Kushal Vadodaria](http://linkedin.com/in/kushal-vadodaria) | 
 [Umang Jain](https://www.linkedin.com/in/umang-jain-52ba01212/)
 
 ### Version

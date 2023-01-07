@@ -20,19 +20,6 @@ CREATE TABLE TEACHERS (
     pass VARCHAR(30) NOT NULL
 );
 
-INSERT INTO STUDENTS(sapid, student_name, student_addr, student_email, student_phoneNo, pass) VALUES('60003210188', 'Kushal Amrish Vadodaria', '703/347, Srishti, Kalpatru, sec-3, Mira Road (E), Thane - 401 107', 'kushalv238@gmail.com','9892775337', 'pass@123');
-INSERT INTO STUDENTS(sapid, student_name, student_addr, student_email, student_phoneNo, pass) VALUES('60003210185', 'Kely Mistry', 'Kandivali', 'kmistry7002@gmail.com','9892775337', 'kmistry@123');
-INSERT INTO STUDENTS(sapid, student_name, student_addr, student_email, student_phoneNo, pass) VALUES('60003210203', 'Umang Jain', 'Kandivali', 'kmistry7002@gmail.com','9892775337', 'kmistry@123');
-INSERT INTO STUDENTS(sapid, student_name, student_addr, student_email, student_phoneNo, pass) VALUES('60003210173', 'Araish Sheikh', 'Kandivali', 'kmistry7002@gmail.com','9892775337', 'kmistry@123');
-INSERT INTO STUDENTS(sapid, student_name, student_addr, student_email, student_phoneNo, pass) VALUES('60003210212', 'Mithil Bhide', 'Kandivali', 'kmistry7002@gmail.com','9892775337', 'kmistry@123');
-
-/*ERRROR*/
-INSERT INTO STUDENTS(sapid, student_name, student_addr, student_email, student_phoneNo, pass) VALUES('60003210205', 'Shruti bhavigada', 'Kandivali', 'kmistry7002@gmail.com','988889277337', 'kmistry@123');
-
-INSERT INTO teachers(sapid, teachers_name, teachers_addr, teachers_email, teachers_phoneNo, pass) VALUES('60000000122', 'Neha Katre', 'Andheri, Mumbai', 'nehaKatre123@gmail.com','8022425160', 'neha098765');
-INSERT INTO teachers(sapid, teachers_name, teachers_addr, teachers_email, teachers_phoneNo, pass) VALUES('60000000144', 'Neha Ram', 'Andheri, Mumbai', 'nehaKatre123@gmail.com','8022425160', 'ramNeha');
-INSERT INTO teachers(sapid, teachers_name, teachers_addr, teachers_email, teachers_phoneNo, pass) VALUES('60000000166', 'Rupali Chandrashekhar', 'Andheri West', 'aerupali@gmail.com','794797387', 'ruplaic');
-
 CREATE TABLE COURSES (
 	cid INTEGER PRIMARY KEY AUTO_INCREMENT,
     cno INTEGER UNIQUE NOT NULL,

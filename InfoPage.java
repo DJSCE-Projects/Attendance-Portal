@@ -22,8 +22,6 @@ public class InfoPage extends javax.swing.JFrame {
     /**
      * Creates new form InfoPage
      */
-    
-    private String myConnectionPass = "123@pass";
     private Connection conn;
     private PreparedStatement obj;
     
@@ -32,9 +30,9 @@ public class InfoPage extends javax.swing.JFrame {
         backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
     
-    public void showInfo(String sapid) {
+    public void showInfo(String sapid, String jdbcConnection) {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass);
+            conn = DriverManager.getConnection(jdbcConnection);
             obj = conn.prepareStatement("SELECT * FROM students WHERE sapid like ?");
             obj.setString(1, sapid);
             

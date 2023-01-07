@@ -22,7 +22,7 @@ public class StudentPage extends javax.swing.JFrame {
      * Creates new form StudentPage
      */
     private String sapID;
-    private String myConnectionPass;
+    private String jdbcConnection;
     Connection conn;
     PreparedStatement obj;
     
@@ -49,7 +49,7 @@ public class StudentPage extends javax.swing.JFrame {
         };
         
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass);
+            conn = DriverManager.getConnection(jdbcConnection);
             obj = conn.prepareStatement("select cno, course_name from courses where cid IN (Select distinct cid from course_appointed where student_id like (Select student_id from students where sapid like '" + this.sapID + "'));");
             
             ResultSet rs = obj.executeQuery();
@@ -75,9 +75,9 @@ public class StudentPage extends javax.swing.JFrame {
      * @param sapID
      * @param myConnectionPass
      */
-    public void initValues(String sapID, String myConnectionPass) {
+    public void initValues(String sapID, String jdbcConnection) {
         this.sapID = sapID;
-        this.myConnectionPass = myConnectionPass;
+        this.jdbcConnection = jdbcConnection;
     }
 
     /**
@@ -100,6 +100,7 @@ public class StudentPage extends javax.swing.JFrame {
         checkAttndButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 0));
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 102));
         jLabel7.setFont(new java.awt.Font("Simplex_IV50", 0, 30)); // NOI18N
@@ -173,27 +174,24 @@ public class StudentPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(155, 155, 155)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+                        .addComponent(teacherInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(155, 155, 155)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
-                                .addComponent(teacherInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(123, 123, 123))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(checkAttndButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(357, 357, 357))))))
+                        .addGap(156, 156, 156)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(365, 365, 365)
+                .addComponent(checkAttndButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,9 +211,9 @@ public class StudentPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkAttndButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
@@ -233,12 +231,12 @@ public class StudentPage extends javax.swing.JFrame {
 
     private void teacherInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherInfoActionPerformed
         // TODO add your handling code here:
-        InfoPage taeachersInfo = new InfoPage();
+        InfoPage studentsInfo = new InfoPage();
 
-        taeachersInfo.showInfo(this.sapID);
+        studentsInfo.showInfo(this.sapID, jdbcConnection);
 
-        taeachersInfo.setVisible(true);
-        taeachersInfo.setLocationRelativeTo(null);
+        studentsInfo.setVisible(true);
+        studentsInfo.setLocationRelativeTo(null);
     }//GEN-LAST:event_teacherInfoActionPerformed
 
     private void checkAttndButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAttndButtonActionPerformed
@@ -247,7 +245,7 @@ public class StudentPage extends javax.swing.JFrame {
         while(i < count){
             if("true".equals(checkAttndTable.getValueAt(i, 0).toString())) {
                 CheckAttendance check = new CheckAttendance();
-                check.initValues(sapID, Integer.parseInt(coursesTable.getValueAt(i, 0).toString()), coursesTable.getValueAt(i, 1).toString(), myConnectionPass);
+                check.initValues(sapID, Integer.parseInt(coursesTable.getValueAt(i, 0).toString()), coursesTable.getValueAt(i, 1).toString(), jdbcConnection);
                 check.fetchData();
                 check.setVisible(true);
                 check.setLocationRelativeTo(null);

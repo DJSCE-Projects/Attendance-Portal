@@ -32,12 +32,12 @@ public class TeachersPage extends javax.swing.JFrame {
      */
     
     private String sapID;
-    private String myConnectionPass;
+    private String jdbcConnection;
     LocalDate todaysDate = LocalDate.now();
     
-    public void initValues(String sapID, String myConnectionPass) {
+    public void initValues(String sapID, String jdbcConnection) {
         this.sapID = sapID;
-        this.myConnectionPass = myConnectionPass;
+        this.jdbcConnection = jdbcConnection;
         sapidFeild.setText("Courses under " + this.sapID + ":");
     }
     
@@ -350,12 +350,12 @@ public class TeachersPage extends javax.swing.JFrame {
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
                         .addComponent(teacherInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(171, 171, 171)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,9 +371,9 @@ public class TeachersPage extends javax.swing.JFrame {
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         pack();
@@ -385,7 +385,7 @@ public class TeachersPage extends javax.swing.JFrame {
         infoTableModel.addColumn("Course Name");
         
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + this.myConnectionPass);
+            conn = DriverManager.getConnection(jdbcConnection);
             obj = conn.prepareStatement("SELECT cno, course_name FROM courses WHERE teachers_id = (SELECT teachers_id FROM teachers where sapid like '" + this.sapID + "')");
             
             ResultSet rs = obj.executeQuery();
@@ -415,7 +415,7 @@ public class TeachersPage extends javax.swing.JFrame {
         String courseTeacherSAPID = this.sapID;
         
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass);
+            conn = DriverManager.getConnection(jdbcConnection);
             obj = conn.prepareStatement("SELECT DISTINCT sapid FROM teachers WHERE teachers_id = (SELECT DISTINCT teachers_id FROM courses WHERE cno like '" + courseNo + "');");
             
             ResultSet rs = obj.executeQuery();
@@ -432,9 +432,9 @@ public class TeachersPage extends javax.swing.JFrame {
             return;
         }
         
-        AttendancePage attndPage = new AttendancePage();
+        GiveAttendance attndPage = new GiveAttendance();
         
-        attndPage.initValues(courseNo, this.myConnectionPass);
+        attndPage.initValues(courseNo, this.jdbcConnection);
         attndPage.fetchData(courseNo);
         attndPage.setVisible(true);
         attndPage.setLocationRelativeTo(null);
@@ -452,7 +452,7 @@ public class TeachersPage extends javax.swing.JFrame {
         String courseTeacherSAPID = this.sapID;
         
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass);
+            conn = DriverManager.getConnection(jdbcConnection);
             
             obj = conn.prepareStatement("INSERT INTO courses(cno, course_name, teachers_id) VALUES(?, ?, (SELECT teachers_id FROM teachers WHERE sapid like ?))");
             
@@ -490,7 +490,7 @@ public class TeachersPage extends javax.swing.JFrame {
         String courseTeacherSAPID = this.sapID;
         
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass);
+            conn = DriverManager.getConnection(jdbcConnection);
             
             obj = conn.prepareStatement("SELECT DISTINCT sapid FROM teachers WHERE teachers_id = (SELECT DISTINCT teachers_id FROM courses WHERE cno like '" + courseNo + "');");
             
@@ -532,7 +532,7 @@ public class TeachersPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         InfoPage taeachersInfo = new InfoPage();
         
-        taeachersInfo.showInfo(this.sapID);
+        taeachersInfo.showInfo(this.sapID, jdbcConnection);
         
         taeachersInfo.setVisible(true);
         taeachersInfo.setLocationRelativeTo(null);

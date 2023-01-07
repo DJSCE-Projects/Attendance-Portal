@@ -125,7 +125,7 @@ public class StudentPage extends javax.swing.JFrame {
         });
 
         teacherInfo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        teacherInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sem3Project/resources/Sample_User_Icon.png"))); // NOI18N
+        teacherInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AttendancePortal/resources/Sample_User_Icon.png"))); // NOI18N
         teacherInfo.setBorder(null);
         teacherInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,7 +213,7 @@ public class StudentPage extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkAttndButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         pack();

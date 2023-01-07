@@ -1,4 +1,4 @@
-package sem3Project;
+package AttendancePortal;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

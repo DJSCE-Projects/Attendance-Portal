@@ -1,4 +1,4 @@
-package sem3Project;
+package AttendancePortal;
 
 
 import java.awt.Cursor;

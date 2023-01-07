@@ -1,8 +1,12 @@
+// WELOCME TO ATTENDANCE PORTAL
+//Go to line 30 to change your jdbc connection
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package sem3Project;
+package AttendancePortal;
 
 import java.awt.Color;
 import java.awt.Cursor;

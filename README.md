@@ -1,34 +1,35 @@
 # Attendance Portal
-This project contains a java based which keeps a track of students attendance, allows teachers to give students attendance and admins to add new students and teachers information.
 
-The data is stored in a SQL database.
+This project contains a java application which can be used by any university. Using this software application a teacher can give students attendance, a student can check their attendance of their courses and an admin can add new admission teacher and students.
 
-## To use the application:- 
+All data is saved in a SQL database.
 
-1. ### `git clone https://github.com/DJSCE-Projects/JavaSem3Project.git`
-Run the above command on your terminal in the directory you want the application file to be.
+## To use this application
 
-2. Run all the commands in the .sql file to create a database template.
+### 1.
+   ### `git clone https://github.com/DJSCE-Projects/Attendance-Portal.git`
+   Run the above command to download the application in your desired directory.
 
-3. Paste your jdbc connection link in the `jdbcConnection` varible which can be found in LoginPage.java file and change the user password.
+### 2.
+   Run all the commands in the `attendacePortal.sql` file in your MySQL Workbench to create your basic database template for you.
 
-4. Run the application from the LoginPage.java file (which is the entry point of the program).
+### 3.
+   Change the `jdbcConnection` variable to the connection of your database along with chanage to your user password in the `LoginPage.java` file (Line 30).
 
-## Note:-
+## Note
 
-For admin access username: `admin`
-                    password: `pass@123`
-Admin can add new students and teachers.
+The application can be run from `LoginPage.java` itself (which is the entry point of the program).
 
-Students and teachers can then login into the portal using their login credentials.
+Admin credentials are: username: `admin`
+                       password: `pass@123`
 
+Other users can then login into the portal using their login credentials.
 
 ## App Info
 
-### Author(s)
+### Authors
 
-[Kushal Vadodaria](http://linkedin.com/in/kushal-vadodaria) | 
-[Umang Jain](https://www.linkedin.com/in/umang-jain-52ba01212/)
+[Kushal Vadodaria](http://linkedin.com/in/kushal-vadodaria) | [Umang Jain](https://www.linkedin.com/in/umang-jain-52ba01212/)
 
 ### Version
 

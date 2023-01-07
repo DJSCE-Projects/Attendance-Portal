@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package sem3Project;
+package AttendancePortal;
 
 import java.awt.Cursor;
 import java.sql.Connection;
@@ -20,7 +20,7 @@ public class CheckAttendance extends javax.swing.JFrame {
     
     private String sapid;
     private int course_no;
-    private String myConnectionPass;
+    private String jdbcConnection;
     Connection conn;
     PreparedStatement obj;
     /**
@@ -96,18 +96,18 @@ public class CheckAttendance extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jTextField1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(249, 249, 249)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(avgTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 219, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(201, 201, 201)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(courseNameFeild, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(courseNameFeild, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(249, 249, 249)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(avgTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 219, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -120,11 +120,11 @@ public class CheckAttendance extends javax.swing.JFrame {
                     .addComponent(courseNameFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(avgTextFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -139,8 +139,8 @@ public class CheckAttendance extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
     
-    public void initValues(String sapid, int course_no, String course_name, String myConnectionPass) {
-        this.myConnectionPass = myConnectionPass;
+    public void initValues(String sapid, int course_no, String course_name, String jdbcConnection) {
+        this.jdbcConnection = jdbcConnection;
         this.sapid = sapid;
         this.course_no = course_no;
         
@@ -153,7 +153,7 @@ public class CheckAttendance extends javax.swing.JFrame {
         infoTableModel.addColumn("Attendance");
         
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass);
+            conn = DriverManager.getConnection(jdbcConnection);
             obj = conn.prepareStatement("SELECT * FROM course_" + this.course_no + " WHERE student_sapID like '" + this.sapid + "';");
             
             ResultSet rs = obj.executeQuery();

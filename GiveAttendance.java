@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package sem3Project;
+package AttendancePortal;
 
 /**
  *
@@ -18,12 +18,12 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import javax.swing.table.DefaultTableModel;
 
-public class AttendancePage extends javax.swing.JFrame {
+public class GiveAttendance extends javax.swing.JFrame {
 
     /**
-     * Creates new form AttendancePage
+     * Creates new form GiveAttendance
      */
-    private String myConnectionPass;
+    private String jdbcConnection;
     Connection conn;
     PreparedStatement obj;
     
@@ -32,12 +32,12 @@ public class AttendancePage extends javax.swing.JFrame {
     private int count = 0;
     
     private String course_no;
-    public void initValues(String course_no, String myConnectionPass) {
+    public void initValues(String course_no, String jdbcConnection) {
         this.course_no = course_no;
-        this.myConnectionPass = myConnectionPass;
+        this.jdbcConnection = jdbcConnection;
     }
     
-    public AttendancePage() {
+    public GiveAttendance() {
         initComponents();
         
         backButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -59,7 +59,7 @@ public class AttendancePage extends javax.swing.JFrame {
         };
         
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass);
+            conn = DriverManager.getConnection(jdbcConnection);
             obj = conn.prepareStatement("SELECT sapid, student_name FROM students WHERE student_id IN (SELECT DISTINCT student_id FROM course_appointed WHERE cid = (SELECT DISTINCT cid FROM courses WHERE cno = " + course_no + "));");
             
             ResultSet rs = obj.executeQuery();
@@ -197,10 +197,10 @@ public class AttendancePage extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(dateFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(358, 358, 358)
                 .addComponent(giveAttndStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(303, 303, 303))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,9 +220,9 @@ public class AttendancePage extends javax.swing.JFrame {
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(giveAttndStudentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -242,7 +242,7 @@ public class AttendancePage extends javax.swing.JFrame {
     private void giveAttndStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_giveAttndStudentButtonActionPerformed
         // TODO add your handling code here:
             try {
-                conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass);
+                conn = DriverManager.getConnection(jdbcConnection);
                 int i = 0;
                 while(i<count) {
                     obj = conn.prepareStatement("INSERT INTO course_" + this.course_no + " VALUES(?, ?, ?)");
@@ -289,21 +289,27 @@ public class AttendancePage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AttendancePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GiveAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AttendancePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GiveAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AttendancePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GiveAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AttendancePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GiveAttendance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AttendancePage().setVisible(true);
+                new GiveAttendance().setVisible(true);
             }
         });
     }

@@ -1,8 +1,12 @@
+// WELOCME TO ATTENDANCE PORTAL
+//Go to line 30 to change your jdbc connection
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package sem3Project;
+package AttendancePortal;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -23,6 +27,7 @@ public class LoginPage extends javax.swing.JFrame {
      * Creates new form LoginPage
      */
     private final String myConnectionPass = "123@pass";
+    private final String jdbcConnection = "jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass;
     private Connection conn;
     private PreparedStatement obj;
     
@@ -76,7 +81,7 @@ public class LoginPage extends javax.swing.JFrame {
         signInButton.setBackground(new java.awt.Color(30, 144, 255));
         signInButton.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         signInButton.setForeground(new java.awt.Color(255, 255, 255));
-        signInButton.setText("Click to Sign in...");
+        signInButton.setText("Click to Log in...");
         signInButton.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 signInButtonFocusGained(evt);
@@ -163,33 +168,33 @@ public class LoginPage extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 88, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(37, 37, 37)
-                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField1)))
+                .addComponent(jTextField1))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(57, 57, 57)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel1))
-                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(32, 32, 32)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jLabel5))
         );
 
@@ -202,8 +207,17 @@ public class LoginPage extends javax.swing.JFrame {
         String pass = new String(jPasswordField1.getPassword());
         String passFromDB = null;
         
+            if(sapid.equals("admin") && pass.equals("pass@123")) {
+            AdminPage admin = new AdminPage();
+            admin.setVisible(true);
+            admin.setLocationRelativeTo(null);
+            this.dispose();
+            return;
+        }
+        
+        
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sem_3_proj?user=kushal&password=" + myConnectionPass);
+            conn = DriverManager.getConnection(jdbcConnection);
             obj = conn.prepareStatement("SELECT pass FROM students WHERE sapid like ?");
             obj.setString(1, sapid);
             
@@ -216,7 +230,7 @@ public class LoginPage extends javax.swing.JFrame {
                 System.out.println("Logged in as Student");
                 
                 StudentPage student = new StudentPage();
-                student.initValues(sapid, myConnectionPass);
+                student.initValues(sapid, jdbcConnection);
                 student.fetchData();
                 student.setVisible(true);
                 student.setLocationRelativeTo(null);
@@ -236,7 +250,7 @@ public class LoginPage extends javax.swing.JFrame {
                     System.out.println("Logged in as Teacher");
 
                     TeachersPage teacher = new TeachersPage();
-                    teacher.initValues(sapid, myConnectionPass);
+                    teacher.initValues(sapid, jdbcConnection);
                     teacher.fetchData();
 
                     teacher.setVisible(true);

@@ -27,7 +27,7 @@ Other users can then login into the portal using their login credentials.
 
 ## App Info
 
-### Author
+### Authors
 
 [Kushal Vadodaria](http://linkedin.com/in/kushal-vadodaria) | [Umang Jain](https://www.linkedin.com/in/umang-jain-52ba01212/)
 

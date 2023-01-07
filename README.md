@@ -5,7 +5,7 @@ The data is stored in a SQL database.
 
 ## To use the application:- 
 
-1. ### `git clone https://github.com/DJSCE-Projects/JavaSem3Project.git`
+1.  #### `git clone https://github.com/DJSCE-Projects/JavaSem3Project.git`
 Run the above command on your terminal in the directory you want the application file to be.
 
 2. Run all the commands in the .sql file to create a database template.

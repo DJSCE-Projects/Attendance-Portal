@@ -37,4 +37,4 @@ Other users can then login into the portal using their login credentials.
 
 ### License
 
-This project is currently unlicenced.
+This project is currently unlicensed.

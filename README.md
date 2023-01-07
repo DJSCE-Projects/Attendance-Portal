@@ -7,14 +7,14 @@ All data is saved in a SQL database.
 ## To use this application
 
 ### 1.
-### `git clone https://github.com/DJSCE-Projects/Attendance-Portal.git`
-Run the above command to download the application in your desired directory.
+    ### `git clone https://github.com/DJSCE-Projects/Attendance-Portal.git`
+    Run the above command to download the application in your desired directory.
 
 ### 2.
-Run all the commands in the `attendacePortal.sql` file in your MySQL Workbench to create your basic database template for you.
+    Run all the commands in the `attendacePortal.sql` file in your MySQL Workbench to create your basic database template for you.
 
 ### 3.
-Change the `jdbcConnection` variable to the connection of your database along with chanage to your user password in the `LoginPage.java` file (Line 30).
+    Change the `jdbcConnection` variable to the connection of your database along with chanage to your user password in the `LoginPage.java` file (Line 30).
 
 ## Note
 
